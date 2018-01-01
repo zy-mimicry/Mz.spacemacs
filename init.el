@@ -62,8 +62,9 @@ values."
      react
      lua
      html
-     (python :variables
-             python-test-runner '(nose pytest))
+     (python
+      :variables
+      python-test-runner '(nose pytest))
      (git
       :variables
       git-magit-status-fullscreen t
@@ -103,6 +104,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       mwe-log-commands
+                                      ctable
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
