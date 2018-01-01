@@ -35,7 +35,7 @@ values."
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
+     ;; ----------/home/yang/s.ycmd/ycmd/ycmd------------------------------------------------------
      helm
      (better-defaults :variables
                       better-defaults-move-to-end-of-code-first nil
@@ -94,11 +94,8 @@ values."
      (spell-checking
       :variables
       spell-checking-enable-by-default nil)
-     (chinese
-      :packages youdao-dictionary
-      :variables
-      chinese-enable-youdao-dict t)
-      ;; ycmd
+     MzMimicry
+     MzMimicry-org
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -183,7 +180,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          spacemacs-light
-                         spacemacs-dark)
+                         spacemacs-dark
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -383,10 +381,10 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; org table indent problem
-  (when (configuration-layer/layer-usedp 'chinese)
-    (when (and (spacemacs/system-is-mac) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
   (fset 'evil-visual-update-x-selection 'ignore)
+
+  (evilified-state-evilify-map occur-mode-map
+    :mode occur-mode)
 
   ;; force horizontal split window
   (setq split-width-threshold 120)
@@ -401,71 +399,7 @@ you should place your code here."
     "olf" 'mwe:open-command-log-buffer)
     (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
-  ;; define the refile targets
-  (defvar org-agenda-dir "" "gtd org files location")
-  (setq-default org-agenda-dir "~/mimicry.org.notes")
-  (setq org-agenda-file-gtd (expand-file-name "mimicry.gtd.org" org-agenda-dir))
-  (setq org-agenda-file-note (expand-file-name "mimicry.notes.org" org-agenda-dir))
-  (setq org-agenda-file-journal (expand-file-name "mimicry.journal.org" org-agenda-dir))
-  (setq org-agenda-file-code-snippet (expand-file-name "mimicry.snippet.org" org-agenda-dir))
-  (setq org-agenda-file-tag-rules (expand-file-name "mimicry.tagrules.org" org-agenda-dir))
-  (setq org-agenda-file-daily-english (expand-file-name "mimicry.daily.english.org" org-agenda-dir))
-  (setq org-agenda-files (list org-agenda-dir))
 
-  (with-eval-after-load 'org-agenda
-    (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro)
-    (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
-      "." 'spacemacs/org-agenda-transient-state/body)
-    )
-  ;; the %i would copy the selected text into the template
-  ;;http://www.howardism.org/Technical/Emacs/journaling-org.html
-  ;;add multi-file journal
-  (setq org-capture-templates
-        '(("w" "Work. [mimicry.gtd.org] [#A]" entry (file+headline org-agenda-file-gtd "Linux-Android")
-           "* TODO [#A] %?\n  %i\n %U"
-           :empty-lines 1)
-          ("t" "Todo. [mimicry.gtd.org] [#B]" entry (file+headline org-agenda-file-gtd "Workspace-Just-Do")
-           "* TODO [#B] %?\n  %i\n"
-           :empty-lines 1)
-          ("b" "Blog Ideas. [mimicry.notes.org] [#B]" entry (file+headline org-agenda-file-note "Blog Ideas")
-           "* TODO [#B] %?\n  %i\n %U"
-           :empty-lines 1)
-          ("c" "Firefox. [mimicry.notes.org] [#C]" entry (file+headline org-agenda-file-note "Quick notes")
-           "* TODO [#C] %?\n %(mimicry)\n %i\n %U"
-           :empty-lines 1)
-          ("l" "Links [mimicry.notes.org] [none]" entry (file+headline org-agenda-file-note "Quick notes")
-           "* TODO [#C] %?\n  %i\n %a \n %U"
-           :empty-lines 1)
-          ("n" "Notes. [mimicry.notes.org] [none]" entry (file+headline org-agenda-file-note "Quick notes")
-           "* %?\n  %i\n %U"
-           :empty-lines 1)
-          ("e" "English [mimicry.daily.english.org] [#C]" entry (file+headline org-agenda-file-daily-english "Quick notes")
-           "* TODO [#C] %?\n \n %U"
-           :empty-lines 1)
-          ("s" "Code Snippet. [mimicry.snippet.org] [none]" entry (file org-agenda-file-code-snippet)
-           "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
-          ("j" "Journal Entry. [mimicry.journal.org] [none]" entry (file+datetree org-agenda-file-journal)
-           "* %?"
-           :empty-lines 1)))
-
-  ;;An entry without a cookie is treated just like priority ' B '.
-  ;;So when create new task, they are default 重要且紧急
-  (setq org-agenda-custom-commands
-        '(
-          ("b" "Blog" tags-todo "Mblog")
-          ;; work
-          ("w" . "M.Org - 工作任务安排")
-          ("wa" "yang.zheng::重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
-          ("wb" "yang.zheng::重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
-          ("wc" "yang.zheng::不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
-          ;; project for yourself
-          ("p" . "M.Org - 个人项目安排")
-          ("pw" tags-todo "PROJECT+WORK+hCATEGORY=\"linux\"")
-          ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"project\"")
-          ("W" "Weekly Review"
-           ((stuck "") ;; review stuck projects as designated by org-stuck-projects
-            (tags-todo "project") ;; review all projects (assuming you use todo keywords to designate projects)
-            ))))
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
