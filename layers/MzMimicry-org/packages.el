@@ -65,8 +65,6 @@ Each entry is either:
 (defun MzMimicry-org/post-init-org ()
 
   ;; define the refile targets
-  (defvar org-agenda-dir "" "Org Files Location.")
-  (setq-default org-agenda-dir "~/Mz.Org.com/Notes")
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-agenda-dir))
   (setq org-agenda-file-note (expand-file-name "notes.org" org-agenda-dir))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-agenda-dir))
@@ -129,11 +127,14 @@ Each entry is either:
 
             )))))
 
-(defun zilongshanren-org/post-init-deft ()
+(defun MzMimicry-org/post-init-deft ()
   (progn
-    (setq deft-use-filter-string-for-filename t)
+    (setq deft-extensions '("txt" "tex" "org"))
+    (setq deft-directory "~/Mz.Org.com/Mz")
     (setq deft-recursive t)
-    (setq deft-extension "org")
-    (setq deft-directory deft-dir)))
+    (global-set-key [f8] 'deft)
+    (setq deft-use-filter-string-for-filename t)
+    ;; (setq deft-extension "org")
+    ))
 
 ;;; packages.el ends here
