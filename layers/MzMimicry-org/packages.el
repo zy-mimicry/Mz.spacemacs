@@ -129,12 +129,11 @@ Each entry is either:
 
 (defun MzMimicry-org/post-init-deft ()
   (progn
-    (setq deft-extensions '("txt" "tex" "org"))
+    (setq deft-extensions '("org"))
     (setq deft-directory "~/Mz.Org.com/Mz")
     (setq deft-recursive t)
     (global-set-key [f8] 'deft)
     (setq deft-use-filter-string-for-filename t)
-    ;; (setq deft-extension "org")
     ))
 
 ;;; packages.el ends here
