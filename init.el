@@ -55,13 +55,13 @@ values."
       ibuffer-group-buffers-by 'projects)
      ;; -- docker
      latex
-     deft
      markdown
      ;; -- gpu
      yaml
      react
      lua
      html
+     deft
      (python
       :variables
       python-test-runner '(nose pytest))

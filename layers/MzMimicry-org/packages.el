@@ -32,7 +32,6 @@
 (defconst MzMimicry-org-packages
   '(
     (org :location built-in)
-    deft
     )
 
   "The list of Lisp packages required by the MzMimicry-org layer.
@@ -126,14 +125,5 @@ Each entry is either:
             (tags-todo "project") ;; review all projects (assuming you use todo keywords to designate projects)
 
             )))))
-
-(defun MzMimicry-org/post-init-deft ()
-  (progn
-    (setq deft-extensions '("org"))
-    (setq deft-directory "~/Mz.Org.com/Mz")
-    (setq deft-recursive t)
-    (global-set-key [f8] 'deft)
-    (setq deft-use-filter-string-for-filename t)
-    ))
 
 ;;; packages.el ends here
