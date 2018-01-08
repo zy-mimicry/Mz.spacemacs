@@ -96,7 +96,6 @@ values."
       :variables
       spell-checking-enable-by-default nil)
      MzMimicry
-     MzMimicry-org
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
