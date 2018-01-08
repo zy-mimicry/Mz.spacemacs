@@ -32,6 +32,7 @@
 (defconst MzMimicry-packages
   '(
     youdao-dictionary
+    paredit
     (org :location built-in)
     )
   "The list of Lisp packages required by the MzMimicry layer.
@@ -66,6 +67,11 @@ Each entry is either:
     :defer t
     :init
     (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)))
+
+(defun MzMimicry/init-paredit ()
+  ;; paredit mede for programming.
+  (paredit-mode)
+  (add-hook 'prog-mode-hook 'paredit-mode))
 
 (defun MzMimicry/post-init-org ()
 

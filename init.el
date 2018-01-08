@@ -103,6 +103,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       mwe-log-commands
+                                      paredit
                                       ctable
                                       )
    ;; A list of packages that cannot be updated.
@@ -359,6 +360,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
   ;; China Mirror Melpa
+  ;; (paredit-mode)
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "https://elpa.emacs-china.org/org/")
