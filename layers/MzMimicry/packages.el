@@ -33,6 +33,7 @@
   '(
     youdao-dictionary
     paredit
+    deft
     (org :location built-in)
     )
   "The list of Lisp packages required by the MzMimicry layer.
@@ -62,16 +63,85 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-(defun MzMimicry/init-youdao-dictionary ()
+(defun MzMimicry/post-init-youdao-dictionary ()
   (use-package youdao-dicrionary
     :defer t
     :init
     (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)))
 
-(defun MzMimicry/init-paredit ()
+(defun MzMimicry/post-init-paredit ()
   ;; paredit mede for programming.
   (paredit-mode)
   (add-hook 'prog-mode-hook 'paredit-mode))
+
+(defun MzMimicry/post-init-deft ()
+  (use-package deft
+    :defer t
+    :ensure t
+    :init
+    (spacemacs/set-leader-keys "odf" 'deft-find-file)
+    :config
+    (setq deft-extensions '("org"))
+    (setq deft-directory deft-dir)
+    (setq deft-recursive t)
+    (setq deft-file-naming-rules '((noslash . "_")))
+    (setq deft-text-mode 'org-mode)
+    (setq deft-use-filter-string-for-filename t)
+    (setq deft-org-mode-title-prefix t)
+    (setq deft-use-filename-as-title nil)
+    ;;))
+
+    (setq deft-strip-summary-regexp
+          (concat "\\("
+                  "[\n\t]" ;; blank
+                  "\\|^#\\+[[:upper:]_]+:.*$" ;; org-mode metadata
+                  "\\|^#\\+[[:alnum:]_]+:.*$" ;; org-mode metadata
+                  "\\)"))
+    (defun MzMimicry/genfile-timestamp()
+      (concat (format-time-string "%Y_%m%d")
+              (char-to-string (+ 65 (random 26)))
+              (char-to-string (+ 65 (random 26)))
+              "__"))
+
+    ;;advise deft-open-file to replace spaces in file names with _
+    (defun MzMimicry/deft-open-file-advice (orig-fun &rest args)
+      (setq name (pop args))
+      (if (file-exists-p name)
+          (progn
+            (push name args)
+            (apply orig-fun args))
+        (progn
+          (setq title (file-name-sans-extension
+                       (file-name-nondirectory name)))
+          (setq name (concat
+                      (file-name-directory name)
+                      (MzMimicry/genfile-timestamp)
+                      (downcase
+                       (replace-regexp-in-string
+                        " " "_" (file-name-nondirectory name)))
+                      (if (not (file-name-extension name))
+                          ".org")))
+          (push name args)
+          (apply orig-fun args)
+          (insert (concat "#+TITLE: " title "\n\n")))))
+
+    (advice-add 'deft-open-file
+                :around #'MzMimicry/deft-open-file-advice)
+
+    (defun MzMimicry/deft-new-file-named-advice (orig-fun &rest args)
+      (setq name (pop args))
+      (setq title name)
+      (setq name (concat
+                  (MzMimicry/genfile-timestamp)
+                  (downcase
+                   (replace-regexp-in-string
+                    " " "_" name))))
+      (push name args)
+      (apply orig-fun args)
+      (insert (concat "#+TITLE: " title "\n\n")))
+
+    (advice-add 'deft-new-file-named
+                :around #'MzMimicry/deft-new-file-named-advice)))
 
 (defun MzMimicry/post-init-org ()
 

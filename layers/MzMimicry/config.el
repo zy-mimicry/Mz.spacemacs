@@ -1,6 +1,6 @@
+
 (setq note-dir "~/Mz.Org.com")
-(defvar org-agenda-dir ""
-  "gtd org files location")
-(setq-default
- org-agenda-dir "~/Mz.Org.com/Brief_Notes")
+(defvar org-agenda-dir "" "gtd org files location")
+(setq-default org-agenda-dir "~/Mz.Org.com/Brief_Notes")
+(setq-default deft-dir "~/Mz.Org.com/Mz")
 

@@ -9,3 +9,4 @@
   (progn
     (cd note-dir)
     (spacemacs/helm-project-smart-do-search)))
+
