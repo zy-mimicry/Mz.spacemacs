@@ -1,9 +1,6 @@
 ;; Keybindings
 ;; Please use `M-x help' for you!
 
-(spacemacs/set-leader-keys "oof" 'zy-mimicry/find-file-from-notes-project)
-(spacemacs/set-leader-keys "oo/" 'zy-mimicry/find-keyword-from-notes-project)
-
 (defun mimicry/as-vim-control-u ()
   "Just like vim's C-u in insert mode.
 Note that: Just delete to this line , I think it's useful."
