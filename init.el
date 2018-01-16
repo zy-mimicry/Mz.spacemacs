@@ -191,7 +191,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 16
+                               :size 17
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -402,9 +402,8 @@ you should place your code here."
   (evil-leader/set-key
     "oll" 'mwe:log-keyboard-commands
     "olf" 'mwe:open-command-log-buffer)
-    (setq tramp-ssh-controlmaster-options
+  (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
-
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))

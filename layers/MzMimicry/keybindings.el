@@ -14,7 +14,3 @@ Note that: Just delete to this line , I think it's useful."
 (define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line)
 (define-key evil-normal-state-map (kbd "C-a") 'move-beginning-of-line)
 (define-key evil-normal-state-map (kbd "C-e") 'move-end-of-line)
-
-;; paredit depended!
-(define-key evil-insert-state-map (kbd "C-h") 'paredit-backward-delete)
-(define-key evil-insert-state-map (kbd "C-d") 'paredit-forward-delete)
