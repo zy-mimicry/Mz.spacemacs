@@ -402,9 +402,7 @@ you should place your code here."
   (linum-relative-on)
 
   (global-company-mode)
-  (evil-leader/set-key
-    "oll" 'mwe:log-keyboard-commands
-    "olf" 'mwe:open-command-log-buffer)
+
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   )
