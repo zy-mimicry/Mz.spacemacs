@@ -96,7 +96,7 @@ values."
       :variables
       spell-checking-enable-by-default nil)
      MzMimicry
-     zilongshanren-ui
+     ;; zilongshanren-ui
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
