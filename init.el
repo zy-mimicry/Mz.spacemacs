@@ -41,6 +41,7 @@ values."
                       better-defaults-move-to-end-of-code-first nil
                       better-defaults-move-to-beginning-of-code-first t)
      colors
+     scheme
      prodigy
      search-engine
      ranger

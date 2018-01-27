@@ -32,7 +32,6 @@
 (defconst MzMimicry-packages
   '(
     youdao-dictionary
-    paredit
     deft
     (org :location built-in)
     )
@@ -68,11 +67,6 @@ Each entry is either:
     :defer t
     :init
     (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)))
-
-(defun MzMimicry/post-init-paredit ()
-  ;; paredit mede for programming.
-  (paredit-mode)
-  (add-hook 'prog-mode-hook 'paredit-mode))
 
 (defun MzMimicry/post-init-deft ()
   (use-package deft
