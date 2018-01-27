@@ -12,6 +12,7 @@ values."
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; Lazy installation of layers (i.e. layers are installed only when a file
+
    ;; with a supported type is opened). Possible values are `all', `unused'
    ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
    ;; not listed in variable `dotspacemacs-configuration-layers'), `all' will
@@ -35,8 +36,8 @@ values."
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------/home/yang/s.ycmd/ycmd/ycmd------------------------------------------------------
-     helm
+     ;; helm
+     ivy
      (better-defaults :variables
                       better-defaults-move-to-end-of-code-first nil
                       better-defaults-move-to-beginning-of-code-first t)
@@ -54,10 +55,8 @@ values."
      (ibuffer
       :variables
       ibuffer-group-buffers-by 'projects)
-     ;; -- docker
      latex
      markdown
-     ;; -- gpu
      yaml
      react
      lua
@@ -105,7 +104,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       solarized-theme
-                                      mwe-log-commands
+                                      ;; mwe-log-commands
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
