@@ -36,8 +36,7 @@ values."
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
-     helm
-     ivy
+	 ivy
      (better-defaults :variables
                       better-defaults-move-to-end-of-code-first nil
                       better-defaults-move-to-beginning-of-code-first t)
@@ -96,7 +95,7 @@ values."
       :variables
       spell-checking-enable-by-default nil)
      MzMimicry
-     ;; zilongshanren-ui
+	 zilongshanren-misc
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
